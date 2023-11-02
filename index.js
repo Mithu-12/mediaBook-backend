@@ -15,7 +15,7 @@ const app = express()
 dotenv.config()
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174'],
+    origin: ['http://localhost:5173', 'https://media-book-frontend.vercel.app'],
     methods: 'GET, POST, DELETE, PUT',
     credentials: true,
  }));
