@@ -5,8 +5,9 @@ import cors from 'cors'
 import authRoute from './routes/auth.js';
 import usersRoute from './routes/users.js';
 import postRoute from './routes/post.js'
-
-
+import passport from 'passport';
+import './config/passport.js';
+import expressSession from 'express-session';
 
 const app = express()
 
@@ -22,8 +23,9 @@ app.use(cors({
 
 app.use(express.json())
 
-
-
+app.use(expressSession({ secret: 'your-secret-key', resave: true, saveUninitialized: true, cookie: { secure: true } }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 const connect = async () => {

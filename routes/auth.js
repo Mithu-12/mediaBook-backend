@@ -1,12 +1,12 @@
 import express from 'express';
-// import passport from 'passport';
+import passport from 'passport';
 import { changePassword, login, register } from '../controller/auth.js';
 import generateToken from '../utils/generateToken.js';
 import { verifyToken, verifyUser } from '../utils/verifyToken.js';
 const router = express.Router();
 const CLIENT_URL = 'http://localhost:5173';
 // const SUCCESS_URL = 'http://localhost:5173/login/success';
-const SUCCESS_URL = 'https://triplo-flights.vercel.app/login/success';
+const SUCCESS_URL = 'http://localhost:5173/login/success';
 
 router.post('/register', register);
 
@@ -70,59 +70,46 @@ router.post('/logout', function (req, res, next) {
   });
 });
 
-// router.get(
-//   '/google',
-//   passport.authenticate('google', { scope: ['profile', 'email'] })
-// );
+router.get(
+  '/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
 
-// router.get('/google/callback', (req, res, next) => {
-//   passport.authenticate('google', async (err, user, info) => {
-//     try {
-//       if (err) {
-//         throw err; // Handle the error
-//       }
+router.get('/google/callback', (req, res, next) => {
+  passport.authenticate('google', async (err, user, info) => {
+    try {
+      if (err) {
+        throw err; // Handle the error
+      }
 
-//       if (!user) {
-//         // Authentication failed
-//         return res.redirect('/failure');
-//       }
+      if (!user) {
+        // Authentication failed
+        return res.redirect('/failure');
+      }
 
-//       // Authentication succeeded, now store the user in the session
-//       req.login(user, async (loginErr) => {
-//         if (loginErr) {
-//           throw loginErr; // Handle the login error
-//         }
+      // Authentication succeeded, now store the user in the session
+      req.login(user, async (loginErr) => {
+        if (loginErr) {
+          throw loginErr; // Handle the login error
+        }
 
-//         // You can also store the user data in the session
-//         req.session.user = user; // This will make the user data available in the session
-//         const sessionUser = req.session.user;
-//         console.log('User data in session:', sessionUser);
+        // You can also store the user data in the session
+        req.session.user = user; // This will make the user data available in the session
+        const sessionUser = req.session.user;
+        console.log('User data in session:', sessionUser);
 
-//         // Redirect to a success URL or send a response
-//         return res.redirect(SUCCESS_URL);
-//       });
-//     } catch (error) {
-//       console.error('Error:', error);
-//       res
-//         .status(500)
-//         .json({ success: false, message: 'Internal server error' });
-//     }
-//   })(req, res, next);
-// });
+        // Redirect to a success URL or send a response
+        return res.redirect(SUCCESS_URL);
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      res
+        .status(500)
+        .json({ success: false, message: 'Internal server error' });
+    }
+  })(req, res, next);
+});
 
 
-// router.get(
-//   '/facebook',
-//   passport.authenticate('facebook', { scope: ['email'] })
-// );
-// router.get(
-//   '/facebook/callback',
-//   passport.authenticate('facebook'),
-//   (req, res) => {
-//     const token = generateToken(req.user._id);
-//     res.cookie('access_token', token, { httpOnly: true });
-//     res.json({ user: req.user });
-//   }
-// );
 
 export default router;
