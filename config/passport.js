@@ -8,8 +8,8 @@ dotenv.config()
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_API_KEY,
-      clientSecret: process.env.GOOGLE_SECRET_API_KEY,
+      clientID: '776491034035-2eabqc9ja4je7m34o78lp59lr07nubju.apps.googleusercontent.com',
+      clientSecret: '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',
       callbackURL: 'https://fierce-pear-pelican.cyclic.app/api/auth/google/callback',
       
     },
