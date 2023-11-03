@@ -23,7 +23,7 @@ app.use(cors({
 
 app.use(express.json())
 
-app.use(expressSession({ secret: 'your-secret-key', resave: true, saveUninitialized: true, cookie: { secure: true } }));
+app.use(expressSession({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
