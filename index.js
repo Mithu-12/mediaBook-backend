@@ -8,6 +8,7 @@ import postRoute from './routes/post.js'
 import passport from 'passport';
 import './config/passport.js';
 import expressSession from 'express-session';
+import cookieParser from 'cookie-parser';
 
 const app = express()
 
@@ -23,7 +24,6 @@ app.use(cors({
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
 app.use(cookieParser());
 
 
