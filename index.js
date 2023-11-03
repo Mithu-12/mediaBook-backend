@@ -8,7 +8,7 @@ import postRoute from './routes/post.js'
 import passport from 'passport';
 import './config/passport.js';
 import expressSession from 'express-session';
-import cookieParser from 'cookie-parser';
+// import cookieParser from 'cookie-parser';
 import { CyclicSessionStore } from '@cyclic.sh/session-store';
 const app = express()
 
@@ -24,7 +24,7 @@ app.use(cors({
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+// app.use(cookieParser());
 
 const options = {
   table: {
