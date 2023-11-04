@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from 'passport';
-import { changePassword, login, register } from '../controller/auth.js';
+import { changePassword, googleSignin, login, register } from '../controller/auth.js';
 import generateToken from '../utils/generateToken.js';
 import { verifyToken, verifyUser } from '../utils/verifyToken.js';
 const router = express.Router();
@@ -11,6 +11,7 @@ const SUCCESS_URL = 'http://localhost:5173/login/success';
 router.post('/register', register);
 
 router.post('/login', login);
+router.post('/googleSignin', googleSignin);
 router.post('/change-password',  changePassword);
 
 
@@ -80,7 +81,7 @@ router.get('/google/callback', (req, res, next) => {
 router.get('/login/success', async (req, res) => {
   try {
     // Use the user data stored in the session
-    const sessionUser = await req.session.user;
+    const sessionUser =  req.session.user;
    
 console.log('user', sessionUser)
     if (!sessionUser) {

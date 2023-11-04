@@ -9,7 +9,7 @@ import passport from 'passport';
 import './config/passport.js';
 import expressSession from 'express-session';
 // import cookieParser from 'cookie-parser';
-import { CyclicSessionStore } from '@cyclic.sh/session-store';
+
 const app = express()
 
 
@@ -26,13 +26,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 // app.use(cookieParser());
 
-const options = {
-  table: {
-    name: process.env.CYCLIC_DB,
-  }
-};
 
-app.use(expressSession({ secret: 'your-secret-key', resave: true, saveUninitialized: true, store: new CyclicSessionStore(options), }));
+
+app.use(expressSession({ secret: 'your-secret-key', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
